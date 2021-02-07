@@ -1,0 +1,105 @@
+variables:
+  PRIVATE_KEY: '/usr/local/wechat/private-key/private.guestcontrol.key'
+
+# pipeline 阶段
+stages:
+  - setup
+  - release
+  - building
+
+cache:
+  paths:
+    - node_modules/
+    - dist/
+
+# 安装依赖
+安装依赖:
+  stage: setup
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - npm install --silent --no-optional --registry=https://registry.npm.taobao.org/
+  tags: 
+    - 31-build-shell
+
+# 构建公共脚本（building 脚本方法）
+.deploy_script: &deploy_script
+  # stage: deployment
+  stage: building
+  before_script:
+    - npm i --silent --no-optional -g miniprogram-ci --registry=https://registry.npm.taobao.org/
+  tags:
+    - 31-build-shell
+
+# 部署开发分支，体验版
+体验版本(deploy:develop):
+  <<: *deploy_script
+  variables:
+    HOST_BUKET_NAME: dev
+  environment:
+    name: Development
+  script:
+    - npm run build:dev:mp-weixin
+    - export VERSION=$(node -p "require('./package.json').version")
+    - export COMMIT_LOG=$(git log -1 --pretty=%B)
+    - miniprogram-ci upload --pp dist/dev/mp-weixin/ --pkp $PRIVATE_KEY --appid $WECHAT_APPID --uv $VERSION.$CI_COMMIT_SHORT_SHA.alpha --ud $COMMIT_LOG --enable-minify true --enable-es7 true
+  after_script:
+    - echo "生成预览二维码"
+    - miniprogram-ci preview --pp dist/dev/mp-weixin/ --pkp $PRIVATE_KEY --appid $WECHAT_APPID --uv $VERSION.$CI_COMMIT_SHORT_SHA.alpha --ud $COMMIT_LOG --enable-minify true --enable-es7 true --qrcode-format image --qrcode-output-dest './qrcode.jpg'
+  when: manual
+  only:
+    - develop
+
+# beta版本，灰度发布
+灰度版本发布(deploy:uat):
+  <<: *deploy_script
+  environment:
+    name: Uat
+  script:
+    - npm run build:mp-weixin
+    - export VERSION=$(node -p "require('./package.json').version")
+    - export COMMIT_LOG=$(git log -1 --pretty=%B)
+    - miniprogram-ci upload --pp dist/build/mp-weixin/ --pkp $PRIVATE_KEY --appid $WECHAT_APPID -r 2 --uv $VERSION.$CI_COMMIT_SHORT_SHA.beta --ud $COMMIT_LOG --enable-minify true --enable-es7 true
+  when: manual
+  only:
+    - /^release.*$/
+
+# 
+全量版本发布(deploy:prod):
+  <<: *deploy_script
+  environment:
+    name: Production
+  script:
+    - npm run build:mp-weixin
+    - export VERSION=$(node -p "require('./package.json').version")
+    - export COMMIT_LOG=$(git log -1 --pretty=%B)
+    - miniprogram-ci upload --pp dist/build/mp-weixin/ --pkp $PRIVATE_KEY --appid $WECHAT_APPID -r 3 --uv $VERSION --ud $COMMIT_LOG --enable-minify true --enable-es7 true
+  artifacts:
+    name: '$CI_COMMIT_REF_NAME-dist'
+    expire_in: 60 mins
+    paths:
+      - dist/build/
+  when: manual
+  only:
+    - master
+
+.semantic_script: &semantic_script
+  only:
+    refs:
+    - master
+    - alpha
+    - /^(([0-9]+)\.)?([0-9]+)\.x/ # This matches maintenance branches
+    - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/ # This matches pre-releases
+  before_script:
+    - npm run build:mp-weixin
+    - cnpm i -D --silent semantic-release @commitlint/config-conventional @semantic-release/{commit-analyzer,git,changelog,gitlab-config,gitlab}
+  tags:
+    - 31-build-shell
+
+发布Release:
+  <<: *semantic_script
+  stage: release
+  script:
+    - npx semantic-release
+      
