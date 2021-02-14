@@ -2,7 +2,7 @@
  * @Author: eamiear
  * @Date: 2021-02-07 14:08:04
  * @Last Modified by: eamiear
- * @Last Modified time: 2021-02-07 15:55:27
+ * @Last Modified time: 2021-02-13 14:33:08
  */
 import { isProEnv } from './envConfig'
 
@@ -18,5 +18,6 @@ export default {
     author: ''
   },
   title: '昂宝小程序',
-  logo: 'logo.svg'
+  logo: 'logo.svg',
+  forceLogin: true // 强制登录
 }
