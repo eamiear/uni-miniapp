@@ -1,4 +1,4 @@
-@import '~variable.less';
+@import './variables.less';
 
 page,
 view,
@@ -38,8 +38,8 @@ button {
       border: 1rpx solid @color-primary;
 
       &.button-hover {
-        color: rgba(@color: @color-primary, @alpha: 0.5);
-        border: 1rpx solid rgba(@color: @color-primary, @alpha: 0.5);
+        color: fade(@color-primary, 0.5);
+        border: 1rpx solid fade(@color-primary, 0.5);
       }
     }
 
@@ -58,8 +58,8 @@ button {
       border: 1rpx solid @text-color-assist;
 
       &.button-hover {
-        color: rgba(@color: @text-color-assist, @alpha: 0.5);
-        border: 1rpx solid rgba(@color: @text-color-assist, @alpha: 0.5);
+        color: fade(@text-color-assist, 0.5);
+        border: 1rpx solid fade(@text-color-assist, 0.5);
       }
     }
   }
@@ -87,7 +87,7 @@ uni-modal .uni-modal {
 }
 
 .bg-white {
-  background-color: #ffffff;
+  background-color: @bg-color;
 }
 
 .bg-transparent {
@@ -102,11 +102,11 @@ uni-modal .uni-modal {
   background-color: @color-warning;
 }
 
-.d-flex {
+.flex {
   display: flex;
 }
 
-.d-none {
+.none {
   display: none !important;
 }
 
@@ -114,15 +114,15 @@ uni-modal .uni-modal {
   visibility: hidden !important;
 }
 
-.d-inline {
+.inline {
   display: inline !important;
 }
 
-.d-inline-block {
+.inline-block {
   display: inline-block !important;
 }
 
-.d-block {
+.block {
   display: block !important;
 }
 
@@ -205,23 +205,23 @@ uni-modal .uni-modal {
 }
 
 .font-size-base {
-  font-size: 28rpx;
+  font-size: @font-size-base;
 }
 
 .font-size-sm {
-  font-size: 24rpx;
+  font-size: @font-size-sm;
 }
 
-.font-size-medium {
-  font-size: 26rpx;
+.font-size-md {
+  font-size: @font-size-md;
 }
 
 .font-size-lg {
-  font-size: 32rpx;
+  font-size: @font-size-lg;
 }
 
-.font-size-extra-lg {
-  font-size: 40rpx;
+.font-size-hudge {
+  font-size: @font-size-hudge;
 }
 
 .text-color-base {
@@ -241,7 +241,7 @@ uni-modal .uni-modal {
 }
 
 .text-color-white {
-  color: #ffffff;
+  color: @text-color-white;
 }
 
 .text-color-warning {
@@ -306,50 +306,6 @@ uni-modal .uni-modal {
   z-index: 1030;
 }
 
-.line-height-100 {
-  line-height: 100%;
-}
-
-.line-height-2 {
-  line-height: 2rem !important;
-}
-
-.line-height-50 {
-  line-height: 50rem !important;
-}
-
-.w-25 {
-  width: 25% !important;
-}
-
-.w-50 {
-  width: 50% !important;
-}
-
-.w-75 {
-  width: 75% !important;
-}
-
-.w-80 {
-  width: 80% !important;
-}
-
-.w-90 {
-  width: 90% !important;
-}
-
-.w-100 {
-  width: 100% !important;
-}
-
-.h-100 {
-  height: 100% !important;
-}
-
-.h-auto {
-  height: auto !important;
-}
-
 .text-left {
   text-align: left !important;
 }
@@ -400,88 +356,4 @@ uni-modal .uni-modal {
 
 .align-text-top {
   vertical-align: text-top !important;
-}
-
-.w-60 {
-  width: 60%;
-}
-
-.w-40 {
-  width: 40%;
-}
-
-.mb-10 {
-  margin-bottom: 10rpx;
-}
-
-.mb-20 {
-  margin-bottom: 20rpx;
-}
-
-.mb-30 {
-  margin-bottom: 30rpx;
-}
-
-.mb-40 {
-  margin-bottom: 40rpx;
-}
-
-.mb-50 {
-  margin-bottom: 50rpx;
-}
-
-.mt-30 {
-  margin-top: 30rpx;
-}
-
-.mt-40 {
-  margin-top: 40rpx;
-}
-
-.ml-10 {
-  margin-left: 10rpx;
-}
-
-.ml-20 {
-  margin-left: 20rpx;
-}
-
-.ml-30 {
-  margin-left: 30rpx;
-}
-
-.mr-10 {
-  margin-right: 10rpx;
-}
-
-.mr-20 {
-  margin-right: 20rpx;
-}
-
-.mr-30 {
-  margin-right: 30rpx;
-}
-
-.mr-40 {
-  margin-right: 40rpx;
-}
-
-.pl-20 {
-  padding-left: 20rpx;
-}
-
-.pl-30 {
-  padding-left: 30rpx;
-}
-
-.pr-20 {
-  padding-right: 20rpx;
-}
-
-.p-30 {
-  padding: 30rpx;
-}
-
-.p-10 {
-  padding: 10rpx;
 }
