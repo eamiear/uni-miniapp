@@ -5,7 +5,6 @@ function resolve (dir) {
 }
 
 const isProEnv = process.env.NODE_ENV === 'production'
-
 // vue.config.js
 module.exports = {
   publicPath: isProEnv ? './' : '/',
@@ -33,6 +32,28 @@ module.exports = {
   },
   transpileDependencies: [
   ],
+  css: {
+    loaderOptions: {
+      less: {
+        globalVars: {
+        },
+        modifyVars: {
+          // 'primary-color': '#F5222D',
+          // 'link-color': '#F5222D',
+          // 'border-radius-base': '4px'
+        },
+        javascriptEnabled: true
+      }
+    }
+  },
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'less',
+      patterns: [
+        resolve('./src/static/styles/variables.less')
+      ]
+    }
+  },
 
   devServer: {
     proxy: {
