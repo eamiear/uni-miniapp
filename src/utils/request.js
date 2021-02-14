@@ -3,26 +3,34 @@
  * @Author: eamiear
  * @Date: 2021-02-07 14:44:03
  * @Last Modified by: eamiear
- * @Last Modified time: 2021-02-07 17:12:41
+ * @Last Modified time: 2021-02-13 09:46:41
  */
 
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import storage from './storage'
+import http from './http/http'
+import { getReqBaseUrl } from '@/config/envConfig'
 
-const requestInterceptors = (config) => {
+const service = http.create({
+  baseURL: getReqBaseUrl(), // api base_url
+  timeout: 6000 // 请求超时时间
+})
+service.interceptors.request.push(config => {
   const token = storage.get(ACCESS_TOKEN)
   if (token) {
-    config.header['X-Access-Token'] = token
+    config.headers['X-Access-Token'] = token
   }
-}
-const responseInterceptors = (response) => {
+  return config
+})
+service.interceptors.response.push((response) => {
   if (response.data && response.data.code === 'SYS009') {
-    // store.dispatch('Logout').then(() => {
-    //   window.location.reload()
-    // })
+    uni.showToast({
+      title: '权限验证失败',
+      icon: 'none'
+    })
   }
   return response.data
-}
+})
 
 /**
  * @param {string} url api路径
@@ -36,24 +44,7 @@ const responseInterceptors = (response) => {
  * }
  */
 const request = (url, params = {}, method = 'GET', extra = {}) => {
-  return new Promise((resolve, reject) => {
-    extra.header = extra.header || {}
-    requestInterceptors(extra)
-    uni.request({
-      url,
-      method,
-      data: params,
-      ...extra,
-      success: (res) => {
-        if (res.statusCode === 200) {
-          resolve(responseInterceptors(res))
-        } else {
-          reject(res)
-        }
-      },
-      fail: reject
-    })
-  })
+  return service({ url, method, data: params, ...extra })
 }
 
 export const getAction = (url, params = {}, extra = {}) => {
@@ -70,7 +61,7 @@ export const deleteAction = (url, params = {}, extra = {}) => {
   return request(url, params, 'DELETE', extra)
 }
 
-export const http = {
+export const _request = {
   get: getAction,
   post: postAction,
   put: putAction,
@@ -78,4 +69,4 @@ export const http = {
   request
 }
 
-export default http
+export default _request
