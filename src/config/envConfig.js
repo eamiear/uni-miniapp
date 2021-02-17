@@ -2,11 +2,11 @@
  * @Author: eamiear
  * @Date: 2021-02-07 14:06:04
  * @Last Modified by: eamiear
- * @Last Modified time: 2021-02-07 16:38:00
+ * @Last Modified time: 2021-02-17 18:10:19
  */
 
 // 开发环境
-const DEV_API = './pro'
+const DEV_API = '/pro'
 // 生产环境API路径
 const PRO_API = '/control'
 export const WEBSOCKET_URL = '/control/websocket/{topic}'

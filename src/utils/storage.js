@@ -3,11 +3,12 @@
  * @Author: eamiear
  * @Date: 2021-02-07 15:10:06
  * @Last Modified by: eamiear
- * @Last Modified time: 2021-02-07 15:57:00
+ * @Last Modified time: 2021-02-15 08:58:59
  */
 
 import { warn } from './log'
 import { isObject } from './util'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 export default {
   set (key, value = '') {
@@ -30,5 +31,8 @@ export default {
   },
   clear () {
     uni.clearStorage()
+  },
+  getToken () {
+    return this.get(ACCESS_TOKEN)
   }
 }

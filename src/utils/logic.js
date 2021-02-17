@@ -3,19 +3,22 @@
  * @Author: eamiear
  * @Date: 2021-02-13 10:08:40
  * @Last Modified by: eamiear
- * @Last Modified time: 2021-02-13 12:07:29
+ * @Last Modified time: 2021-02-15 23:28:51
  */
 import { getLastVersion } from '@/api/system'
 import { isAjaxSuccess } from '@/utils/util'
 import config from '@/config/defaultSettings'
 import { log } from '@/utils/log'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
+import storage from '@/utils/storage'
+import router from '@/utils/router'
 
 const updateVersionInfo = () => {
   const info = uni.getSystemInfoSync()
   info.versionCode = 0
   info.version = config.info.version
   info.appVersion = config.info.version
-  console.log(info)
+  log(info)
 
   const iPhone = info.model && info.model.indexOf('iPhone') !== -1
   info.titleBarHeight = iPhone ? 44 : 48
@@ -25,7 +28,7 @@ const updateVersionInfo = () => {
 /**
  * 小程序更新
  */
-const updateMiniappManager = () => {
+export const updateMiniappManager = () => {
   if (uni.canIUse('getUpdateManager')) {
     const updateManager = uni.getUpdateManager()
     updateManager.onCheckForUpdate((res) => {
@@ -46,7 +49,7 @@ const updateMiniappManager = () => {
 /**
  * APP 更新
  */
-const updateNativeAppManager = () => {
+export const updateNativeAppManager = () => {
   const info = updateVersionInfo()
   plus.runtime.getProperty(plus.runtime.appid, (wgtInfo) => {
     info.versionCode = wgtInfo.versionCode
@@ -88,23 +91,37 @@ const updateNativeAppManager = () => {
   })
 }
 
-const showLoading = (title = '加载中', mask = false) => {
+export const checkPermission = () => {
+  if (config.forceLogin) {
+    storage.get(ACCESS_TOKEN) ? router.toHome() : router.toLogin()
+  }
+}
+
+export const getNetworkType = () => {
+  uni.getNetworkType({
+    success: (res) => {
+      console.log(res.networkType)
+    }
+  })
+}
+
+export const showLoading = (title = '加载中', mask = false) => {
   uni.showLoading({ title, mask })
 }
-const hideLoading = () => {
+export const hideLoading = () => {
   uni.hideLoading()
 }
 
-const showToastError = (title = '') => {
+export const showToastError = (title = '') => {
   uni.showToast({
     title,
     icon: 'none'
   })
 }
-const showToastSuccess = (title = '') => {
+export const showToastSuccess = (title = '') => {
   uni.showToast({ title })
 }
-const showModal = (params = {}) => {
+export const showModal = (params = {}) => {
   return new Promise((resolve, reject) => {
     uni.showModal({
       showCancel: false,
@@ -117,7 +134,7 @@ const showModal = (params = {}) => {
     })
   })
 }
-const showConfirm = (params = {}) => {
+export const showConfirm = (params = {}) => {
   const options = {
     cancelText: '取消',
     confirmText: '确认'
@@ -125,14 +142,32 @@ const showConfirm = (params = {}) => {
   return showModal(Object.assign({}, options, params))
 }
 
-export const logic = {
+export const login = (provider = '') => {
+  return new Promise((resolve, reject) => {
+    uni.login({
+      provider,
+      success: (res) => {
+        if (res.code) {
+          resolve(res.code)
+        } else {
+          showToastError('登录失败！' + res.errMsg)
+          reject(res)
+        }
+      },
+      fail: reject
+    })
+  })
+}
+
+export default {
   updateMiniappManager,
   updateNativeAppManager,
+  checkPermission,
   showLoading,
   hideLoading,
   showToastError,
   showToastSuccess,
   showModal,
-  showConfirm
+  showConfirm,
+  login
 }
-export default logic

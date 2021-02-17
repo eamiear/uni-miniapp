@@ -3,12 +3,14 @@
  * @Author: eamiear
  * @Date: 2021-02-13 14:36:57
  * @Last Modified by: eamiear
- * @Last Modified time: 2021-02-13 17:47:41
+ * @Last Modified time: 2021-02-15 21:17:06
  */
 
  const Constants = {
   HOME: '/pages/index/index',
-  LOGIN: '/pages/login/login'
+  LOGIN: '/pages/login/login',
+  REG: '/pages/reg/reg',
+  BIND: '/pages/bind/bind'
  }
 
  /**
@@ -85,8 +87,14 @@ class Router {
   toHome () {
     getCurrentPages().length > 1 ? this.pop() : this.reLaunch(Constants.HOME)
   }
-  toLogin () {
-    return this.redirectTo(Constants.LOGIN)
+  toLogin (params = {}) {
+    return this.redirectTo(Constants.LOGIN, params)
+  }
+  toReg (params = {}) {
+    return this.redirectTo(Constants.REG, params)
+  }
+  toBind (params = {}) {
+    return this.redirectTo(Constants.BIND, params)
   }
 }
 

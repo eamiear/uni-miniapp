@@ -2,7 +2,7 @@
 if (process.env.NODE_ENV !== 'production') {
   console.log('mock mounting')
   const Mock = require('better-mock/dist/mock.mp.js')
-  require('./services/auth')
+  // require('./services/auth')
   require('./services/user')
   require('./services/manage')
   require('./services/system')
