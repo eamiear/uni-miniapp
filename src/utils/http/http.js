@@ -36,7 +36,7 @@ function Http (instanceConfig) {
     response: []
   }
 }
-Http.prototype.request = (config) => {
+Http.prototype.request = function (config) {
   if (typeof config === 'string') {
     config = arguments[1] || {}
     config.url = arguments[0]
@@ -52,7 +52,7 @@ Http.prototype.request = (config) => {
   } else {
     config.method = 'get'
   }
-  config.url = buildFullPath(config.baseUrl, config.url)
+  config.url = buildFullPath(config.baseURL, config.url)
 
   const chain = [dispatchRequest, undefined]
   let promise = Promise.resolve(config)
@@ -101,10 +101,10 @@ const http = createInstance(defaults)
 http.Http = Http
 
 http.create = instanceConfig => {
-  return createInstance(Object.assign(http.defaults, instanceConfig))
+  return createInstance(Object.assign({}, http.defaults, instanceConfig))
 }
 http.all = promises => {
   return Promise.all(promises)
 }
 
-export default http
+module.exports = http
