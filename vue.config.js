@@ -58,7 +58,8 @@ module.exports = {
   devServer: {
     proxy: {
      '/pro': {
-        target: 'https://www.bookstack.cn/bookchat',
+        // target: 'https://www.bookstack.cn/bookchat',
+        target: 'https://aliiot.on-bright.com/control',
         ws: false,
         changeOrigin: true,
         pathRewrite: {
