@@ -1,8 +1,7 @@
-import { login, logout } from '@/api/login'
-// import { getUserPermissionList } from '@/api/system'
+import { login, loginByWechat, logout } from '@/api/login'
 import { ACCESS_TOKEN, USER_NAME, USER_INFO } from '@/store/mutation-types'
-import { isAjaxSuccess } from '@/utils/util'
 import storage from '@/utils/storage'
+import { isAjaxSuccess } from '@/utils/util'
 
 const user = {
   state: {
@@ -36,10 +35,9 @@ const user = {
   },
 
   actions: {
-    // 登录
     Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
-        login(userInfo).then(response => {
+        login(userInfo.username, userInfo.password).then(response => {
           if (isAjaxSuccess(response.code)) {
             const result = response.result
             const userInfo = result.userInfo
@@ -59,28 +57,23 @@ const user = {
         })
       })
     },
-
-    // GetPermissionList ({ commit }) {
-    //   return new Promise((resolve, reject) => {
-    //     getUserPermissionList().then(response => {
-    //       if (!isAjaxSuccess(response.code)) {
-    //         reject()
-    //       }
-    //       const menu = response.result.menu
-    //       const auth = response.result.auth
-
-    //       sessionStorage.setItem(USER_AUTH, JSON.stringify(auth))
-    //       if (menu && menu.length > 0) {
-    //         commit('SET_PERMISSIONLIST', menu)
-    //       } else {
-    //         reject(new Error('getPermissionList: permissions must be a non-null array!'))
-    //       }
-    //       resolve(response)
-    //     }).catch(error => {
-    //       reject(error)
-    //     })
-    //   })
-    // },
+    LoginByWechat ({ commit }, { code, userInfo }) {
+      return new Promise((resolve, reject) => {
+        loginByWechat(code, userInfo).then(res => {
+          if (isAjaxSuccess(res.code)) {
+            const user = res.data.user
+            if (!user || user.uid <= 0 || !user.token) {
+              reject()
+            }
+            commit('SET_TOKEN', user.token)
+            commit('SET_INFO', user)
+            commit('SET_NAME', { username: user.username, realname: user.realname })
+            commit('SET_AVATAR', user.avatar)
+            resolve(user)
+          } else reject()
+        }).catch(error => reject(error))
+      })
+    },
 
     // 登出
     Logout ({ commit, state }) {
