@@ -52,7 +52,8 @@ process.UNI_LIBRARIES.forEach(libraryName => {
 module.exports = {
   presets: [
     [
-      '@vue/cli-plugin-babel/preset',
+      // '@vue/cli-plugin-babel/preset',
+      '@vue/app',
       {
         modules: 'commonjs',
         useBuiltIns: process.env.UNI_PLATFORM === 'h5' ? 'usage' : 'entry'

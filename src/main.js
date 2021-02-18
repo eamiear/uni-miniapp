@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import store from '@/store'
-import { VueBus } from '@/utils/vue-bus'
+import store from './store'
+import { VueBus } from './utils/vue-bus'
 import logic, { showLoading, hideLoading, showToastError, showToastSuccess, showModal, showConfirm } from './utils/logic'
-import router from '@/utils/router'
-import { isAjaxSuccess } from '@/utils/util'
-import logger from '@/utils/log'
+import router from './utils/router'
+import { isAjaxSuccess } from './utils/util'
+import logger from './utils/log'
 
 // 启动mock
 import './mock'
