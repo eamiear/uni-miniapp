@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 
 import store from '@/store'
+import { VueBus } from '@/utils/vue-bus'
 import logic, { showLoading, hideLoading, showToastError, showToastSuccess, showModal, showConfirm } from './utils/logic'
 import router from '@/utils/router'
 import { isAjaxSuccess } from '@/utils/util'
@@ -12,6 +13,8 @@ import './mock'
 import storage from './utils/storage'
 
 Vue.config.productionTip = false
+
+Vue.use(VueBus)
 
 Vue.prototype.$logic = logic
 Vue.prototype.$showLoading = showLoading
