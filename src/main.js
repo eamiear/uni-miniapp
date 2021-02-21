@@ -3,7 +3,7 @@ import App from './App.vue'
 
 import store from './store'
 import { VueBus } from './utils/vue-bus'
-import logic, { showLoading, hideLoading, showToastError, showToastSuccess, showModal, showConfirm } from './utils/logic'
+import logic from './utils/logic'
 import router from './utils/router'
 import { isAjaxSuccess } from './utils/util'
 import logger from './utils/log'
@@ -17,12 +17,12 @@ Vue.config.productionTip = false
 Vue.use(VueBus)
 
 Vue.prototype.$logic = logic
-Vue.prototype.$showLoading = showLoading
-Vue.prototype.$hideLoading = hideLoading
-Vue.prototype.$showToastError = showToastError
-Vue.prototype.$showToastSuccess = showToastSuccess
-Vue.prototype.$showModal = showModal
-Vue.prototype.$showConfirm = showConfirm
+Vue.prototype.$showLoading = logic.showLoading
+Vue.prototype.$hideLoading = logic.hideLoading
+Vue.prototype.$showToastError = logic.showToastError
+Vue.prototype.$showToastSuccess = logic.showToastSuccess
+Vue.prototype.$showModal = logic.showModal
+Vue.prototype.$showConfirm = logic.showConfirm
 Vue.prototype.$$router = router
 Vue.prototype.$isAjaxSuccess = isAjaxSuccess
 Vue.prototype.$logger = logger
