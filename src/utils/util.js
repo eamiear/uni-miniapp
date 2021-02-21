@@ -2,7 +2,7 @@
  * @Author: eamiear
  * @Date: 2021-02-07 15:06:53
  * @Last Modified by: eamiear
- * @Last Modified time: 2021-02-17 23:15:42
+ * @Last Modified time: 2021-02-21 13:23:37
  */
 
 const _toString = Object.prototype.toString
@@ -30,15 +30,15 @@ export function isEmail (str) {
  * 手机号码
  */
 export function isMobile (s) {
-  return /^1[0-9]{10}$/.test(s)
+  // return /^1[0-9]{10}$/.test(s)
+  return /^[1][3,4,5,7,8][0-9]{9}$/.test(s)
 }
 
 /**
  * 电话号码
  */
 export function isPhone (s) {
-  // return /^([0-9]{3,4}-)?[0-9]{7,8}$/.test(s)
-  return /^[1][3,4,5,7,8][0-9]{9}$/.test(s)
+  return /^([0-9]{3,4}-)?[0-9]{7,8}$/.test(s)
 }
 
 /**
