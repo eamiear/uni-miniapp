@@ -1,0 +1,462 @@
+// @import './variables';
+
+page,
+view,
+scroll-view,
+text,
+image,
+textarea,
+button,
+input {
+  box-sizing: border-box;
+}
+
+page {
+  background-color: #F1F8FA;
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+button {
+  margin: 0;
+
+  &[type='primary'] {
+    background-color: #007aff;
+    color: #ffffff;
+    font-size: 28rpx;
+
+    &[disabled] {
+      background-color: #D1D78C;
+    }
+
+    &[plain] {
+      color: #007aff;
+      border: 1rpx solid #007aff;
+
+      &.button-hover {
+        color: fade(#007aff, 0.5);
+        border: 1rpx solid fade(#007aff, 0.5);
+      }
+    }
+
+    &.button-hover {
+      background-color: #d5da91;
+    }
+
+    &::after {
+      border: 0;
+    }
+  }
+
+  &[type='default'] {
+    &[plain] {
+      color: #919293;
+      border: 1rpx solid #919293;
+
+      &.button-hover {
+        color: fade(#919293, 0.5);
+        border: 1rpx solid fade(#919293, 0.5);
+      }
+    }
+  }
+}
+
+uni-toast {
+  z-index: 10002;
+}
+
+.uni-mask {
+  z-index: 10000;
+}
+
+uni-modal,
+uni-modal .uni-modal {
+  z-index: 10001;
+}
+
+.uni-picker-container .uni-picker {
+  z-index: 10002;
+}
+
+.bg-base {
+  background-color: #fff;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.bg-transparent {
+  background-color: transparent !important;
+}
+
+.bg-primary {
+  background-color: #007aff;
+}
+
+.bg-warning {
+  background-color: #f0ad4e;
+}
+
+.flex {
+  display: flex;
+}
+
+.none {
+  display: none !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+.inline {
+  display: inline !important;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+.block {
+  display: block !important;
+}
+
+.flex-column {
+  -ms-flex-direction: column !important;
+  flex-direction: column !important;
+}
+
+.justify-content-start {
+  justify-content: flex-start;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.just-content-center {
+  justify-content: center;
+}
+
+.justify-content-evenly {
+  justify-content: space-evenly !important;
+}
+
+.just-content-around {
+  justify-content: space-around;
+}
+
+.align-items-start {
+  align-items: flex-start;
+}
+
+.align-items-end {
+  align-items: flex-end;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.align-items-between {
+  align-items: space-between;
+}
+
+.align-items-around {
+  align-items: space-around;
+}
+
+.align-items-stretch {
+  align-items: stretch;
+}
+
+.align-items-baseline {
+  -ms-flex-align: baseline !important;
+  align-items: baseline !important;
+}
+
+.flex-fill {
+  -ms-flex: 1 1 auto !important;
+  flex: 1 1 auto !important;
+}
+
+.flex-wrap {
+  -ms-flex-wrap: wrap !important;
+  flex-wrap: wrap !important;
+}
+
+.flex-nowrap {
+  -ms-flex-wrap: nowrap !important;
+  flex-wrap: nowrap !important;
+}
+
+.flex-shrink-0 {
+  -ms-flex-negative: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+.font-size-base {
+  font-size: 28rpx;
+}
+
+.font-size-sm {
+  font-size: 24rpx;
+}
+
+.font-size-md {
+  font-size: 26rpx;
+}
+
+.font-size-lg {
+  font-size: 32rpx;
+}
+
+.font-size-hudge {
+  font-size: 40rpx;
+}
+
+.text-color-base {
+  color: #5A5B5C;
+}
+
+.text-color-assist {
+  color: #919293;
+}
+
+.text-color-primary {
+  color: #007aff;
+}
+
+.text-color-danger {
+  color: #dd524d;
+}
+
+.text-color-white {
+  color: #ffffff;
+}
+
+.text-color-warning {
+  color: #f0ad4e;
+}
+
+.text-color-grey {
+  color: #878889;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.font-weight-bold {
+  font-weight: 700 !important;
+}
+
+.font-weight-light {
+  font-weight: 300 !important;
+}
+
+.font-weight-lighter {
+  font-weight: lighter !important;
+}
+
+.font-weight-normal {
+  font-weight: 400 !important;
+}
+
+.overflow-auto {
+  overflow: auto !important;
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+.position-relative {
+  position: relative !important;
+}
+
+.position-absolute {
+  position: absolute !important;
+}
+
+.position-fixed {
+  position: fixed !important;
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+.fixed-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.border-box {
+  box-sizing: border-box;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+.rounded-pill {
+  border-radius: 50rem !important;
+}
+
+.border-radius-base {
+  border-radius: 6rpx;
+}
+
+.pre-line {
+  white-space: pre-line;
+}
+
+.align-top {
+  vertical-align: top !important;
+}
+
+.align-middle {
+  vertical-align: middle !important;
+}
+
+.align-bottom {
+  vertical-align: bottom !important;
+}
+
+.align-text-bottom {
+  vertical-align: text-bottom !important;
+}
+
+.align-text-top {
+  vertical-align: text-top !important;
+}
+.row {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.col {
+	flex-basis: 0;
+	flex-grow: 1;
+	max-width: 100%;
+}
+
+.col-1 {
+	flex: 0 0 8.333333%;
+	max-width: 8.333333%;
+}
+
+.col-2 {
+	flex: 0 0 16.666667%;
+	max-width: 16.666667%;
+}
+
+.col-3 {
+	flex: 0 0 25%;
+	max-width: 25%;
+}
+
+.col-4 {
+	flex: 0 0 33.333333%;
+	max-width: 33.333333%;
+}
+
+.col-5 {
+	flex: 0 0 41.666667%;
+	max-width: 41.666667%;
+}
+
+.col-6 {
+	flex: 0 0 50%;
+	max-width: 50%;
+}
+
+.col-7 {
+	flex: 0 0 58.333333%;
+	max-width: 58.333333%;
+}
+
+.col-8 {
+	flex: 0 0 66.666667%;
+	max-width: 66.666667%;
+}
+
+.col-9 {
+	flex: 0 0 75%;
+	max-width: 75%;
+}
+
+.col-10 {
+	flex: 0 0 83.333333%;
+	max-width: 83.333333%;
+}
+
+.col-11 {
+	flex: 0 0 91.666667%;
+	max-width: 91.666667%;
+}
+
+.col-12 {
+	flex: 0 0 100%;
+	max-width: 100%;
+}
+.ellipsis-1row {
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.ellipsis-2row {
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.ellipsis-3row {
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.padding {
+  padding: 12rpx 40rpx;
+}
+.mgb-sm {
+  margin-bottom: 20rpx;
+}

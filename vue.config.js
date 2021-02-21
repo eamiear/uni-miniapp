@@ -46,6 +46,7 @@ module.exports = {
       }
     }
   },
+  // TODO APP-PLUS 不支持全局变量
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',
@@ -58,7 +59,6 @@ module.exports = {
   devServer: {
     proxy: {
      '/pro': {
-        // target: 'https://www.bookstack.cn/bookchat',
         target: 'https://aliiot.on-bright.com/control',
         ws: false,
         changeOrigin: true,

@@ -25,7 +25,5 @@ export default {
 
 <style lang="less">
 /*每个页面公共css */
-// #ifndef APP-PLUS
 @import 'static/styles/app.less';
-// #endif
 </style>

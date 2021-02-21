@@ -3,13 +3,19 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "miniapp"
+				"navigationStyle": "custom"
 			}
     },
     {
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录"
+			}
+		},
+    {
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "个人中心"
 			}
 		}
 	],
@@ -18,5 +24,37 @@
 		"navigationBarTitleText": "miniapp",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+  },
+	"tabBar": {
+		"color": "#444444",
+		"selectedColor": "#fca853",
+		"borderStyle": "white",
+		"backgroundColor": "#F2F2F2",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "static/images/tab/home-0.png",
+			"selectedIconPath": "static/images/tab/home-1.png",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/nine/nine",
+			"iconPath": "static/images/tab/kiai9-0.png",
+			"selectedIconPath": "static/images/tab/kiai9-1.png",
+			"text": "9块9"
+		}, {
+			"pagePath": "pages/classify/classify",
+			"iconPath": "static/images/tab/classify-0.png",
+			"selectedIconPath": "static/images/tab/classify-1.png",
+			"text": "分类"
+		}, {
+			"pagePath": "pages/shop_cart/shop_cart",
+			"iconPath": "static/images/tab/favorite-0.png",
+			"selectedIconPath": "static/images/tab/favorite-1.png",
+			"text": "购物车"
+		}, {
+			"pagePath": "pages/mine/mine",
+			"iconPath": "static/images/tab/user-0.png",
+			"selectedIconPath": "static/images/tab/user-1.png",
+			"text": "我的"
+		}]
 	}
 }
